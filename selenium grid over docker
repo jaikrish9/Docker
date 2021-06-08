@@ -1,0 +1,93 @@
+How to Setup Selenium Grid On Docker
+
+
+
+
+Notes:
+
+docker run -d -p 4545:4444 —name selenium-hub selenium/hub 
+docker run -d -P —link selenium-hub:hub selenium/node-chrome-debug 
+docker run -d -P —link selenium-hub:hub selenium/node-firefox-debug
+
+From <https://www.youtube.com/watch?v=_lBaedX4UAE&feature=youtu.be> 
+
+
+---------------------------
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+sudo yum update -y
+sudo amazon-linux-extras install docker
+sudo yum install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+docker info
+---------
+1 sudo systemctl start docker
+2 sudo systemctl enable docker
+3 docker pull selenium/hub
+4 docker pull selenium/node-firefox
+5 docker pull selenium/node-chrome
+6 docker pull selenium/node-firefox-debug
+7 docker pull selenium/node-chrome-debug
+docker run -d -p 4444:4444 --name selenium-hub selenium/hub
+
+http://18.220.12.152:4444/grid/console
+
+http://paulsbruce.io/blog/2018/01/setting-up-your-own-selenium-grid-on-aws/
+
+https://github.com/SeleniumHQ/docker-selenium/blob/trunk/docker-compose-v3.yml
+
+
+******************
+https://dzone.com/articles/deploying-selenium-grid-using-docker
+https://stackoverflow.com/questions/36087173/containers-are-not-linked-with-docker-compose-version-2
+
+
+
+https://www.google.com/search?rlz=1C1GCEA_enUS831US831&sxsrf=ALeKk03tZqtdxMieOsV1JOUko3M7FexZ0Q%3A1598376033610&ei=YUhFX73sJLOL4-EP09GSwAM&q=java-junit-selenium+grid+example&oq=java-junit-selenium+grid+&gs_lcp=CgZwc3ktYWIQAxgAMgUIIRCgAToECCMQJzoECAAQQzoFCAAQkQI6BwgAELEDEEM6BwgjELECECc6AggAOgcIABAUEIcCOgQIABAeOgYIABAIEB46CAgAEAgQChAeOgcIIRAKEKABUMkMWLtdYKpqaABwAHgAgAHuAYgB9x2SAQYwLjI0LjGYAQCgAQGqAQdnd3Mtd2l6wAEB&sclient=psy-ab&safe=active&ssui=on
+
+https://examples.javacodegeeks.com/core-java/junit/selenium-grid-junit-example/
+
+https://www.swtestacademy.com/selenium-parallel-tests-grid-junit/
+
+https://www.guru99.com/introduction-to-selenium-grid.html
+
+
+
+
+
+
+
+
+
+Local:
+
+Hub:
+java -jar selenium-server-standalone-3.141.59.jar -role hub
+
+Node:
+java -Dwebdriver.chrome.driver="C:\aTAF_Application\webdrivers\chromedriver.exe" -jar selenium-server-standalone-3.141.59.jar -role webdriver -hub http://30.239.190.57:4444/grid/register -port 5555
+
+
+
+
+Steps to setup a grid:
+Approach - 1:
+Step-1: Setup Docker
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+Step-2: 
+8 docker pull selenium/hub
+9 docker pull selenium/node-firefox-debug
+10 docker pull selenium/node-chrome-debug
+Step-3:
+11 docker run -d -p 4445:4444 --name selenium-hub2 selenium/hub
+12 http://13.127.84.147:4444/grid/console this is public IP of my AWS instance
+Step-4:
+13 docker logs containerID – to see the status of selenium grid
+14 docker run -d -P --link selenium-hub2:hub selenium/node-chrome-debug
+15 docker run -d -P --link selenium-hub2:hub selenium/node-firefox-debug
+
+Helpful commands:
+Docker images
+Docker ps -a  | running containers
